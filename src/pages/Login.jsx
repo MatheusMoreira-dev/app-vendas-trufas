@@ -9,18 +9,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { FcGoogle } from "react-icons/fc";
 
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-} from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
+import { loginWithGoogle } from "@/services/login";
 
 function Login() {
+  async function handleLoginWithGoogle() {
+    await loginWithGoogle({
+      onSucess: (r) => console.log(r),
+      onError: (r) => console.log(r),
+    });
+  }
+
   return (
     <div className="fixed inset-0">
       <Card className="w-full max-w-md absolute -translate-x-1/2 left-1/2 top-1/12 m-2">
@@ -50,7 +50,11 @@ function Login() {
             </Button>
 
             <div className="grid">
-              <Button type="button" variant="ghost">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={handleLoginWithGoogle}
+              >
                 <FcGoogle />
                 Entrar com o Google
               </Button>

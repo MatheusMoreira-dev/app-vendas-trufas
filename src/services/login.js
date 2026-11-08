@@ -1,11 +1,7 @@
 import { auth } from "./firebaseConfig";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth/web-extension";
-import { signOut } from "firebase/auth";
+import { signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-export async function loginWithGoogle(onSucess, onError) {
+export async function loginWithGoogle({ onSucess, onError }) {
   const provider = new GoogleAuthProvider();
 
   try {
