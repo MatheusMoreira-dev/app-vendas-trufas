@@ -39,7 +39,7 @@ function App() {
     <div className="w-full h-dvh bg-background">
       {!user ? <Login /> : <Home vendas={vendas} />}
 
-      <nav className="fixed bottom-4 mx-auto w-full h-12">
+      <nav className="fixed bottom-8 mx-auto w-full h-12">
         <ButtonGroup className="mx-auto p-2">
           <Button variant="outline">Pagamentos</Button>
           <Button variant="outline">Produção</Button>
