@@ -42,29 +42,29 @@ function Home({ vendas }) {
   };
 
   return (
-    <div className="w-full grid mt-2 gap-2">
+    <div className="w-full grid gap-2 px-2">
       <div className="sticky top-0 z-50">
         <Card
-          className={`shadow-md transition-all duration-300 ${!scrolled ? "bg-background" : "bg-primary rounded-t-none"}`}
+          className={`shadow-md transition-all duration-300 ${!scrolled ? "bg-background" : "bg-primary"}`}
         >
           <CardContent
             className={
               !scrolled
-                ? `flex flex-col items-center gap-4`
+                ? `flex flex-col items-center`
                 : "flex items-center gap-2"
             }
           >
             <Input
               type="date"
-              className={`w-max text-xs ${scrolled ? "bg-background" : ""}`}
+              className={`w-full max-w-sm text-xs ${scrolled ? "bg-background" : ""}`}
               value={data.toISOString().slice(0, 10)}
             ></Input>
 
             <h1
               className={
                 !scrolled
-                  ? "text-primary font-bold text-3xl"
-                  : "font-medium text-xl text-background"
+                  ? "text-center text-primary font-bold text-3xl"
+                  : "font-medium text-xl text-background text-center w-full"
               }
             >
               R$ 1.000,00
@@ -87,21 +87,29 @@ function Home({ vendas }) {
         </Card>
       </div>
 
-      <div className="w-full grid gap-2">
-        {vendas.map((v) => (
-          <Item variant="outline" className="shadow-md">
-            <ItemContent>
-              <ItemTitle>{v.valor}</ItemTitle>
-              <ItemDescription>{v.descricao}</ItemDescription>
-            </ItemContent>
+      <section className="grid gap-4">
+        <div>
+          <h1 className="mb-2 text-muted-foreground text-xs text-center">
+            Vendas
+          </h1>
 
-            <ItemMedia variant="icon">
-              {paymentsIcons[v.metodoPagamento] ??
-                paymentsIcons[v.metodoPagamento]}
-            </ItemMedia>
-          </Item>
-        ))}
-      </div>
+          <div className="grid gap-2">
+            {vendas.map((v) => (
+              <Item variant="outline" className="shadow-md">
+                <ItemContent>
+                  <ItemTitle>{v.valor}</ItemTitle>
+                  <ItemDescription>{v.descricao}</ItemDescription>
+                </ItemContent>
+
+                <ItemMedia variant="icon">
+                  {paymentsIcons[v.metodoPagamento] ??
+                    paymentsIcons[v.metodoPagamento]}
+                </ItemMedia>
+              </Item>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Button className="fixed right-4 bottom-24 size-12 rounded-full shadow-md z-50">
         <FaDollarSign className="size-6" />
