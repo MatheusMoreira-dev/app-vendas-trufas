@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className="w-full h-dvh bg-background">
-      {!user ? <Login /> : <Home user={user} vendas={vendas} />}
+      {!user ? <Login /> : <Home vendas={vendas} />}
     </div>
   );
 }

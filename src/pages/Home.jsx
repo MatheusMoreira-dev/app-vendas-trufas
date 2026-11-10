@@ -22,7 +22,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { FieldGroup, Field, FieldLabel } from "@/components/ui/field";
-import { Avatar, AvatarImage, AvatarFallBack } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 import { Input } from "@/components/ui/input";
 import { MdShowChart } from "react-icons/md";
@@ -30,9 +30,13 @@ import { FaPix } from "react-icons/fa6";
 
 import { FaMoneyBill } from "react-icons/fa";
 import { FaDollarSign } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import { useEffect, useState } from "react";
+import { logOut } from "@/services/login";
 
-function Home({ user, vendas }) {
+import { auth } from "@/services/firebaseConfig";
+
+function Home({ vendas }) {
   const [openForm, setOpenForm] = useState(false);
   const [data, setData] = useState(new Date());
   const [scrolled, setScrolled] = useState(false);
@@ -57,11 +61,32 @@ function Home({ user, vendas }) {
   return (
     <div>
       <header className="h-16 bg-primary sticky top-0 z-50 w-full">
-        <div className="mx-auto"></div>
+        <div className="size-full flex justify-between items-center px-2">
+          <div className="flex gap-2 items-center">
+            <Avatar className="size-8">
+              <AvatarImage src={auth.currentUser.photoURL} />
+              <AvatarFallback>
+                {auth.currentUser.displayName.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+
+            <p className="text-sm text-background line-clamp-1 max-w-[20ch]">
+              {auth.currentUser.displayName}
+            </p>
+          </div>
+
+          <Button
+            onClick={() => logOut()}
+            className="text-sm text-muted-foreground"
+          >
+            <span>Sair</span>
+            <FiLogOut className="size-5" />
+          </Button>
+        </div>
       </header>
 
       <main className="w-full grid gap-2 px-2">
-        <div className="sticky top-20 z-50 my-5">
+        <div className="sticky top-18 z-50 my-4">
           <Card
             className={`shadow-md transition-all duration-300 ${!scrolled ? "bg-background" : "bg-primary"}`}
           >
@@ -129,7 +154,7 @@ function Home({ user, vendas }) {
         <FaDollarSign className="size-6" />
       </Button>
 
-      <nav className="fixed bottom-8 mx-auto w-full h-12">
+      <nav className="fixed bottom-8 mx-auto w-full h-12 bg-background">
         <ButtonGroup className="mx-auto p-2">
           <Button variant="outline">Pagamentos</Button>
           <Button variant="outline">Produção</Button>
