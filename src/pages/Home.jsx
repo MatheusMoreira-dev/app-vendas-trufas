@@ -13,23 +13,26 @@ import {
   ButtonGroupSeparator,
   ButtonGroupText,
 } from "@/components/ui/button-group";
-import {
-  Dialog,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-  DialogContent,
-  DialogClose,
-} from "@/components/ui/dialog";
+
 import { FieldGroup, Field, FieldLabel } from "@/components/ui/field";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetFooter,
+} from "@/components/ui/sheet";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import CartItem from "@/components/CartItem";
 
 import { Input } from "@/components/ui/input";
 import { MdShowChart } from "react-icons/md";
-import { FaPix } from "react-icons/fa6";
+import { FaPix, FaCartShopping } from "react-icons/fa6";
 
-import { FaMoneyBill } from "react-icons/fa";
-import { FaDollarSign } from "react-icons/fa";
+import { FaMoneyBill, FaDollarSign } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { logOut } from "@/services/login";
@@ -37,6 +40,69 @@ import { logOut } from "@/services/login";
 import { auth } from "@/services/firebaseConfig";
 
 function Home({ vendas }) {
+  const itens = [
+    {
+      nome: "Maracujá",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Brigadeiro",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Ninho com Nutella",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+    {
+      nome: "Oreo",
+      descricao: "Maracujá",
+      estoque: 12,
+    },
+  ];
+
   const [openForm, setOpenForm] = useState(false);
   const [data, setData] = useState(new Date());
   const [scrolled, setScrolled] = useState(false);
@@ -163,18 +229,47 @@ function Home({ vendas }) {
       </nav>
 
       {/* Form de Nova Venda */}
-      <Dialog open={openForm} onOpenChange={setOpenForm}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Cadastrar Venda</DialogTitle>
-          </DialogHeader>
+      <Sheet open={openForm} onOpenChange={setOpenForm}>
+        <SheetContent side="bottom" showCloseButton={false}>
+          <form className="h-[80dvh] flex flex-col">
+            <Tabs className="flex min-h-0 flex-1 flex-col">
+              <TabsList variant="line">
+                <TabsTrigger value="carrinho">
+                  <FaCartShopping /> Carrinho
+                </TabsTrigger>
 
-          <DialogFooter>
-            <DialogClose>Cancelar</DialogClose>
-            <Button type="submit">Salvar</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+                <TabsTrigger value="pagamento">
+                  <FaDollarSign />
+                  Pagamento
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="carrinho" className="flex min-h-0 flex-1">
+                <div className="flex-1 flex flex-col min-h-0 gap-3 overflow-y-auto">
+                  {itens.map((v) => (
+                    <CartItem item={v} />
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+
+            <div className="flex flex-col h-12 border w-full px-2 py-4">
+              <span className="text-xl">R$12,00</span>
+              <span className="">2x Maracujá, 3x Ninho com nutella</span>
+            </div>
+
+            <SheetFooter className="px-0 flex flex-col gap-2">
+              <div className="flex gap-2 w-full px-2">
+                <SheetClose className="flex-1">Cancelar</SheetClose>
+
+                <Button className="flex-1" type="submit">
+                  Salvar
+                </Button>
+              </div>
+            </SheetFooter>
+          </form>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
